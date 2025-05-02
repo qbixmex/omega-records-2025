@@ -31,7 +31,7 @@ bun dev
 npm run build
 
 # BUN
-bun build
+bun run build
 ```
 
 ## Preview Locally
