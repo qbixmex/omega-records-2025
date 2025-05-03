@@ -20,6 +20,7 @@ const RootLayout: FC<Props> = ({ children }) => {
         alt="Omega Records Logo"
         width={238}
         height={80}
+        priority
       />
     </header>
 

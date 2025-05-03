@@ -46,7 +46,7 @@ export const LoginForm = () => {
         <form action={handleLogin}>
           <div className="flex items-center justify-center">
             <button type="submit" className={styles.googleSubmitButton}>
-              Google <FaGoogle />
+              Sign in with Google <FaGoogle />
             </button>
           </div>
         </form>
