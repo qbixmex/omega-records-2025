@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { auth } from "@/auth.config";
 import { redirect } from "next/navigation";
 import Profile from "./components/Profile";
 
