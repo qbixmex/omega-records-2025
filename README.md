@@ -14,6 +14,19 @@ npm install
 bun install
 ```
 
+## Generate Secret for Authentication
+
+```bash
+openssl rand -base64 32
+```
+
+***Then paste generated secret to .env***
+
+```ini
+...
+AUTH_SECRET="RNBUvICd9zpIPyIVAs80Z ..."
+```
+
 ## Run Development Mode
 
 ```bash

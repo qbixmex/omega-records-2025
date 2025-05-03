@@ -1,5 +1,8 @@
 'use client';
 
+import { FaGoogle } from "react-icons/fa";
+import { RiSendPlaneFill } from "react-icons/ri";
+import handleLogin from '../actions/handleLogin';
 import styles from './styles.module.css';
 
 export const LoginForm = () => {
@@ -8,7 +11,7 @@ export const LoginForm = () => {
       <h1 className={styles.title}>Login</h1>
 
       <section className={styles.formContainer}>
-        <form action={() => console.log('Submitting the form ...')}>
+        <form action={() => {}}>
           <div className={styles.fieldsContainer}>
             <div className={styles.labelInputContainer}>
               <label htmlFor="email" className={styles.label}>Email</label>
@@ -31,7 +34,19 @@ export const LoginForm = () => {
 
           <div className={styles.submitContainer}>
             <button type="submit" className={styles.submitButton}>
-              Access
+              Signin <RiSendPlaneFill />
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <div className="my-5"></div>
+
+      <section className={styles.formContainer}>
+        <form action={handleLogin}>
+          <div className="flex items-center justify-center">
+            <button type="submit" className={styles.googleSubmitButton}>
+              Google <FaGoogle />
             </button>
           </div>
         </form>
