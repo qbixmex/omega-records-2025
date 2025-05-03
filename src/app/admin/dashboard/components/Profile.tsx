@@ -9,7 +9,7 @@ export const Profile = () => {
   const { data: session } = useSession();
 
   return (
-    <>
+    <div className="mb-4">
       {
         session && session.user && session.user.image ? (
           <figure>
@@ -28,7 +28,7 @@ export const Profile = () => {
           </figure>
         )
       }
-    </>
+    </div>
   );
 };
 

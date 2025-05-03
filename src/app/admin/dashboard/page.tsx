@@ -17,6 +17,7 @@ const LoginPage = async () => {
         <span className="text-blue-500 font-semibold italic">{session.user?.name}</span>
       </p>
       <Profile />
+      
     </>
   );
 };
