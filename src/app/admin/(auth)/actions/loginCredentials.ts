@@ -8,6 +8,7 @@ export const authenticate = async (
   formData: FormData,
 ): Promise<string> => {
   try {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     await signIn('credentials', {
       ...Object.fromEntries(formData),
       redirect: false,

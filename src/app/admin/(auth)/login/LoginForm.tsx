@@ -1,20 +1,42 @@
 'use client';
 
-import { useActionState } from "react";
+import { ChangeEvent, useActionState, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { RiSendPlaneFill } from "react-icons/ri";
 import handleLogin from '../actions/handleLogin';
 import { authenticate } from '../actions/loginCredentials';
 import styles from './styles.module.css';
+import { FaExclamationCircle } from "react-icons/fa";
+import { useFormStatus } from "react-dom";
+import { ImSpinner6 as Spinner } from "react-icons/im";
+
+type FormData = {
+  email: string;
+  password: string;
+};
+
+const FORM_DATA: FormData = {
+  email: "",
+  password: "",
+};
 
 export const LoginForm = () => {
-  const [ errorMessage, formAction, isPending ] = useActionState(
+  const [ inputField, setInputField ] = useState(FORM_DATA);
+  const [ errorMessage, formAction ] = useActionState(
     authenticate,
     undefined,
   );
 
-  console.log("Error Message:", errorMessage);
-  console.log("Is Pending:", isPending);
+  const handleInputFields = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputField((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }))
+  };
+
+  // const clearForm = () => {
+  //   setInputField(FORM_DATA);
+  // };
 
   return (
     <>
@@ -30,7 +52,8 @@ export const LoginForm = () => {
                 type="email"
                 name="email"
                 className={styles.input}
-                defaultValue="daniel.van2024@gmail.com"
+                value={inputField.email}
+                onChange={handleInputFields}
               />
             </div>
 
@@ -41,15 +64,23 @@ export const LoginForm = () => {
                 type="password"
                 name="password"
                 className={styles.input}
-                defaultValue="secretpassword"
+                value={inputField.password}
+                onChange={handleInputFields}
               />
             </div>
           </div>
 
+          {
+            (errorMessage === 'Invalid credentials !') && (
+              <div className="flex items-center gap-2 bg-pink-500 py-2 px-4 rounded mb-5">
+                <FaExclamationCircle size={20} className="text-pink-50" />
+                <p className="text-sm text-white font-bold italic">Credenciales Invalidas</p>
+              </div>
+            )
+          }
+
           <div className={styles.submitContainer}>
-            <button type="submit" className={styles.submitButton}>
-              Signin <RiSendPlaneFill />
-            </button>
+            <SubmitButton />
           </div>
         </form>
       </section>
@@ -66,6 +97,32 @@ export const LoginForm = () => {
         </form>
       </section>
     </>
+  );
+};
+
+const SubmitButton = () => {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      type="submit"
+      className={pending ? styles.disabledButton : styles.submitButton}
+      disabled={pending}
+    >      
+      {
+        pending ? (
+          <>
+            <span className="animate-pulse">Wait</span>
+            <Spinner className="animate-spin [animation-duration:2.5s]" />
+          </>
+        ) : (
+          <>
+            <span>Signin</span>
+            <RiSendPlaneFill />
+          </>
+        )
+      }
+    </button>
   );
 };
 
