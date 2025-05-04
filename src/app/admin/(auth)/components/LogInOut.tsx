@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { MdLogout, MdLogin } from "react-icons/md";
 import { LuLoader } from "react-icons/lu";
@@ -8,10 +7,6 @@ import { LuLoader } from "react-icons/lu";
 export const LogInOut = () => {
 
   const { status } = useSession();
-
-  useEffect(() => {
-    console.log(status);
-  }, [status]);
 
   return (
     <>

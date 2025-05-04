@@ -12,16 +12,18 @@ export const Profile = () => {
     <div className="mb-4">
       {
         session && session.user && session.user.image ? (
-          <figure>
-            <Image
-              src={session.user?.image as string}
-              alt={`${session.user?.name} Logo`}
-              className="border box-content border-gray-400 rounded"
-              width={96}
-              height={96}
-              priority
-            />
-          </figure>
+          <>
+            <figure>
+              <Image
+                src={session.user?.image as string}
+                alt={`${session.user?.name} Logo`}
+                className="border box-content border-gray-400 rounded"
+                width={96}
+                height={96}
+                priority
+              />
+            </figure>
+          </>
         ) : (
           <figure className="border border-gray-400 rounded p-2 box-content">
             <FaUser size={80} className="text-gray-400" />

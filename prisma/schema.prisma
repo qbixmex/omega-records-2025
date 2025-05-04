@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+   output   = "../src/generated/prisma/client"
 }
 
 datasource db {
@@ -45,6 +46,11 @@ model Session {
  
   @@map("sessions")
 }
+
+enum Role {
+  admin
+  user
+}
  
 model User {
   id            String    @id @default(uuid())
@@ -52,14 +58,20 @@ model User {
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
+  password      String?
+
+  roles         Role[] @default([user])
+  isActive      Boolean  @default(true)
+
   accounts      Account[]
   sessions      Session[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
  
   @@map("users")
 }
- 
+
 model VerificationToken {
   identifier String
   token      String
