@@ -1,12 +1,12 @@
 import { auth } from "@/auth.config";
-import { redirect } from "next/navigation";
 import Profile from "./components/Profile";
+import { redirect } from "next/navigation";
 
 const LoginPage = async () => {
   const session = await auth();
 
-  if(!session) {
-    redirect("/admin/login");
+  if (!session?.user) {
+    redirect('/admin/login');
   }
 
   return (
@@ -21,4 +21,4 @@ const LoginPage = async () => {
   );
 };
 
-export default LoginPage;
+export  default LoginPage;
