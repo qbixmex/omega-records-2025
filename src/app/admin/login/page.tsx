@@ -1,6 +1,14 @@
+import { auth } from "@/auth.config";
 import LoginForm from "../(auth)/login/LoginForm";
+import { redirect } from "next/navigation";
 
-const LoginPage = () => {
+const LoginPage = async () => {
+  const session = await auth();
+
+  if(session?.user) {
+    redirect('/admin/dashboard');
+  }
+
   return (
     <LoginForm />
   );
