@@ -67,15 +67,23 @@ export const authConfig: NextAuthConfig = {
       return session;
     },
     // authorized({ auth, request: { nextUrl } }) {
-      // const isLoggedIn = !!auth?.user;
-      // const isOnDashboard = nextUrl.pathname.startsWith('/admin/dashboard');
-      // if (isOnDashboard) {
-      //   if (isLoggedIn) return true;
-      //   return false; // Redirect unauthenticated users to login page
-      // } else if (isLoggedIn) {
-      //   return Response.redirect(new URL('/admin/dashboard', nextUrl));
-      // }
-      // return true;
+    //   const isLoggedIn = !!auth?.user;
+    //   const isOnAdmin = nextUrl.pathname.startsWith('/admin');
+    //   const isOnLogin = nextUrl.pathname === '/auth/login';
+    //   const isOnRegister = nextUrl.pathname === '/auth/register';
+
+    //   if (isOnAdmin) {
+    //     // Redirect unauthenticated users to login page if they're not logged in.
+    //     return isLoggedIn ? true : false;
+    //   }
+
+    //   if (isOnLogin || isOnRegister) {
+    //     if (isLoggedIn) {
+    //       return Response.redirect(new URL('/admin/dashboard', nextUrl));
+    //     }
+    //   }
+
+    //   return true;
     // },
   },
 };
