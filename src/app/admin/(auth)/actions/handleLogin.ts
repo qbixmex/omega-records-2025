@@ -2,8 +2,6 @@
 
 import { signIn } from "@/auth.config";
 
-const handleLogin = async () => {
+export const handleLoginGoogle = async () => {
   await signIn("google");
 };
-
-export default handleLogin;

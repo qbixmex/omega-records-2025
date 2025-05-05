@@ -1,7 +1,7 @@
 import { FC } from "react";
 import type { Metadata } from "next";
-import Image from "next/image";
-import LogInOut from "./(auth)/components/LogInOut";
+
+import Navigation from "./(auth)/components/Navigation";
 
 export const metadata: Metadata = {
   title: "Omega Records",
@@ -11,18 +11,11 @@ export const metadata: Metadata = {
 
 type Props = Readonly<{ children: React.ReactNode; }>;
 
-const RootLayout: FC<Props> = async ({ children }) => {
+const AdminLayout: FC<Props> = async ({ children }) => {
   return (
     <div className="grid grid-cols-1 grid-rows-[auto_1fr_auto] justify-center min-h-screen">
-      <header className="inline-flex justify-between p-5">
-        <Image
-          src="/images/omega-records-logo.png"
-          alt="Omega Records Logo"
-          width={238}
-          height={80}
-          priority
-        />
-        <LogInOut />
+      <header className="flex justify-between items-center p-5">
+        <Navigation />
       </header>
       <main className="container mx-auto px-5 flex flex-col items-center justify-center">
         {children}
@@ -34,4 +27,4 @@ const RootLayout: FC<Props> = async ({ children }) => {
   );
 };
 
-export default RootLayout;
+export default AdminLayout;

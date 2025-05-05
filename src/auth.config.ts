@@ -1,3 +1,5 @@
+import type { AdapterUser } from 'next-auth/adapters';
+import { User } from './interfaces/user.interface';
 import NextAuth, { type NextAuthConfig } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import Google from "next-auth/providers/google";
@@ -53,30 +55,15 @@ export const authConfig: NextAuthConfig = {
     strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token }) {
-      const dbUser = await prisma.user.findUnique({
-        where: { email: token.email as string },
-        select: {
-          id: true,
-          roles: true,
-          isActive: true,
-        }
-      });
-
-      if (dbUser?.isActive === false) {
-        throw new Error("User is not active");
+    async jwt({ token, user }) {
+      if (user) {
+        token.data = user;
       }
-
-      token.id = dbUser?.id ?? "";
-      token.roles = dbUser?.roles ?? [];
 
       return token;
     },
     async session({ session, token }) {
-      if (session && session.user) {
-        session.user.id = token.id as string;
-        session.user.roles = token.roles as string[]; 
-      }
+      session.user = token.data as AdapterUser & User;
       return session;
     },
     // authorized({ auth, request: { nextUrl } }) {

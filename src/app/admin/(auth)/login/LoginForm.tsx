@@ -1,13 +1,14 @@
 'use client';
 
-import { ChangeEvent, useActionState, useState } from "react";
+import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { RiSendPlaneFill } from "react-icons/ri";
-import handleLogin from '../actions/handleLogin';
+import { handleLoginGoogle } from '../actions/handleLogin';
 import { authenticate } from '../actions/loginCredentials';
 import styles from './styles.module.css';
 import { FaExclamationCircle } from "react-icons/fa";
 import { useFormStatus } from "react-dom";
+import { useRouter } from "next/navigation";
 import { ImSpinner6 as Spinner } from "react-icons/im";
 
 type FormData = {
@@ -21,8 +22,9 @@ const FORM_DATA: FormData = {
 };
 
 export const LoginForm = () => {
+  const router = useRouter();
   const [ inputField, setInputField ] = useState(FORM_DATA);
-  const [ errorMessage, formAction ] = useActionState(
+  const [ state, formAction ] = useActionState(
     authenticate,
     undefined,
   );
@@ -34,9 +36,13 @@ export const LoginForm = () => {
     }))
   };
 
-  // const clearForm = () => {
-  //   setInputField(FORM_DATA);
-  // };
+  useEffect(() => {
+    if (state === 'Success') {
+      setInputField(FORM_DATA);
+       // FULL REFRESH to get the new token
+      window.location.href = "/admin/dashboard";
+    }
+  }, [router, state]);
 
   return (
     <>
@@ -71,7 +77,7 @@ export const LoginForm = () => {
           </div>
 
           {
-            (errorMessage === 'Invalid credentials !') && (
+            (state === 'Invalid credentials !') && (
               <div className="flex items-center gap-2 bg-pink-500 py-2 px-4 rounded mb-5">
                 <FaExclamationCircle size={20} className="text-pink-50" />
                 <p className="text-sm text-white font-bold italic">Credenciales Invalidas</p>
@@ -88,7 +94,7 @@ export const LoginForm = () => {
       <div className="my-5"></div>
 
       <section className={styles.formContainer}>
-        <form action={handleLogin}>
+        <form action={handleLoginGoogle}>
           <div className="flex items-center justify-center">
             <button type="submit" className={styles.googleSubmitButton}>
               Sign in with Google <FaGoogle />

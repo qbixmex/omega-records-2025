@@ -12,7 +12,7 @@ export const authenticate = async (
       ...Object.fromEntries(formData),
       redirect: false,
     });
-    return 'Signin Successful 👍';
+    return 'Success';
   } catch(error) {
     if (error instanceof AuthError) {
       switch((error as AuthError & { type: string }).type) {

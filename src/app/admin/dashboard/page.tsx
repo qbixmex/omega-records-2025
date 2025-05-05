@@ -1,5 +1,5 @@
 import { auth } from "@/auth.config";
-import Profile from "./components/Profile";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 const LoginPage = async () => {
@@ -14,9 +14,12 @@ const LoginPage = async () => {
       <h1 className="text-4xl font-semibold mb-5">Dashboard</h1>
       <p className="text-xl mb-2">
         Welcome&nbsp;
-        <span className="text-blue-500 font-semibold italic">{session?.user?.name}</span>
+        <Link href="/admin/profile">
+          <span className="text-blue-500 hover:text-blue-600 hover:underline font-semibold italic">
+            {session?.user?.name}
+          </span>
+        </Link>
       </p>
-      <Profile />
     </>
   );
 };
