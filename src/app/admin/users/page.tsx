@@ -12,7 +12,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/ca
 import { Check, X, Construction, Pencil, Trash, User } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
-export const UsersPage = async () => {
+const UsersPage = async () => {
   const session = await auth();
 
   if (!session?.user) {

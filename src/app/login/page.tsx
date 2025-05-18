@@ -1,5 +1,5 @@
 import { auth } from "@/auth.config";
-import LoginForm from "../(auth)/login/LoginForm";
+import LoginForm from "../admin/(auth)/login/LoginForm";
 import { redirect } from "next/navigation";
 
 const LoginPage = async () => {

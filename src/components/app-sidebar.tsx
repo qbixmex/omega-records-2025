@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { FC } from "react";
 import Link from "next/link";
@@ -15,12 +15,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { User } from "next-auth";
 import { data } from "./app-sidebar.data";
+import { User } from "next-auth";
 
-type Props = Readonly<{
-  user: User;
-}> & React.ComponentProps<typeof Sidebar>;
+type Props = Readonly<{ user: User }> &
+React.ComponentProps<typeof Sidebar>;
 
 export const AppSidebar: FC<Props> = ({ user, ...props }: Props) => {
   return (
