@@ -1,7 +1,11 @@
 import { FC } from "react";
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
-import Navigation from "./(auth)/components/Navigation";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SiteHeader } from "@/components/site-header";
+import { auth } from "@/auth.config";
 
 export const metadata: Metadata = {
   title: "Omega Records",
@@ -12,18 +16,27 @@ export const metadata: Metadata = {
 type Props = Readonly<{ children: React.ReactNode; }>;
 
 const AdminLayout: FC<Props> = async ({ children }) => {
+  const session = await auth();
+
+  if (!session?.user) {
+    redirect('/admin/login');
+  }
+
   return (
-    <div className="grid grid-cols-1 grid-rows-[auto_1fr_auto] justify-center min-h-screen">
-      <header className="flex justify-between items-center p-5">
-        <Navigation />
-      </header>
-      <main className="container mx-auto px-5 flex flex-col items-center justify-center">
+    <SidebarProvider
+      style={
+        {
+          "--sidebar-width": "calc(var(--spacing) * 72)",
+          "--header-height": "calc(var(--spacing) * 12)",
+        } as React.CSSProperties
+      }
+    >
+      <AppSidebar user={session.user} />
+      <SidebarInset>
+        <SiteHeader />
         {children}
-      </main>
-      <footer className="p-5">
-        <p className="text-gray-400 text-center text-sm">&copy; 2025 Omega Records</p>
-      </footer>
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 };
 

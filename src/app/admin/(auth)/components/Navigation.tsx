@@ -5,6 +5,15 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { MdLogout } from "react-icons/md";
 import { logout } from "../actions/handleLogout";
+import { ModeToggle } from "@/components/dark-light-switcher";
+import { LayoutDashboard } from 'lucide-react';
+import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export const Navigation = () => {
 
@@ -20,21 +29,43 @@ export const Navigation = () => {
         height={80}
         priority
       />
-      {isAuthenticated && (
-        <section className="flex gap-5">
-          <Link
-            href="/admin/dashboard"
-            className="text-gray-400 font-semibold italic hover:text-gray-500 hover:underline"
-          >Dashboard</Link>
 
-          <button
-            className="inline-flex items-center gap-2 cursor-pointer"
-            onClick={() => logout()}
-            title="Sign Out"
-          >
-            <span className="text-sm font-semibold italic">Logout</span>
-            <MdLogout size={25} />
-          </button>
+      {isAuthenticated && (
+        <section className="flex items-center gap-3">
+          <TooltipProvider>
+            <Tooltip delayDuration={250}>
+              <TooltipTrigger>
+                <Link
+                  href="/admin/dashboard"
+                  className={buttonVariants({ variant: "outline" })}
+                  title="Dashboard"
+                >
+                  <LayoutDashboard />
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="left">
+                Dashboard
+              </TooltipContent>
+            </Tooltip>
+
+            <ModeToggle />
+          
+            <Tooltip delayDuration={250}>
+              <TooltipTrigger asChild>
+                <Button
+                  className="cursor-pointer"
+                  onClick={() => logout()}
+                  variant="outline"
+                  title="Sign Out"
+                >
+                  <MdLogout size={25} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">
+                Logout
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </section>
       )}
     </>
