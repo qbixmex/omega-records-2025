@@ -12,25 +12,35 @@ import Link from 'next/link';
 
 export const Breadcrumbs = () => {
   const pathname = usePathname();
-
   const segments = pathname.split('/');
+  segments.shift();
 
   return (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href="/admin/dashboard">
-              <b><i>Dashboard</i></b>
-            </Link>
+            {
+              segments.length > 2 ? (
+                <Link href={`/${segments[0]}/${segments[1]}`}>
+                  <b><i>{segments[1].toUpperCase()}</i></b>
+                </Link>
+              ) : (
+                <b><i>{segments[1].toUpperCase()}</i></b>
+              )
+            }
           </BreadcrumbLink>
         </BreadcrumbItem>
         {
-          segments.length > 3 && (
+          (segments.length > 2) && (
             <>
               <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                <BreadcrumbLink href="/components">{segments[3]}</BreadcrumbLink>
+                <BreadcrumbLink
+                  href={`/${segments[0]}/${segments[1]}/${segments[2]}`}
+                >
+                  {segments[2].toUpperCase()}
+                </BreadcrumbLink>
               </BreadcrumbItem>
             </>
           )

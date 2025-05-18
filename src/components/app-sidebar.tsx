@@ -1,18 +1,11 @@
 "use client"
 
+import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  IconCamera,
-  IconLayoutDashboard,
-  IconFileAi,
-  IconFileDescription,
-  IconSettings,
-} from "@tabler/icons-react"
-
-import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
-import { NavUser } from "@/components/nav-user"
+import { NavMain } from "@/components/nav-main";
+import { NavSecondary } from "@/components/nav-secondary";
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -21,82 +14,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { FC } from "react";
-
-
-const data = {
-  navMain: [
-    {
-      title: "Dashboard",
-      url: "/admin/dashboard",
-      icon: IconLayoutDashboard,
-    },
-  ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: IconFileAi,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: IconSettings,
-      disabled: true,
-    },
-  ],
-}
+} from "@/components/ui/sidebar";
+import { User } from "next-auth";
+import { data } from "./app-sidebar.data";
 
 type Props = Readonly<{
-  user: {
-    name: string;
-    email: string;
-    image: string;
-  };
+  user: User;
 }> & React.ComponentProps<typeof Sidebar>;
 
 export const AppSidebar: FC<Props> = ({ user, ...props }: Props) => {
@@ -114,8 +37,8 @@ export const AppSidebar: FC<Props> = ({ user, ...props }: Props) => {
                   <Image
                     src="/images/omega-records-logo.png"
                     alt="Omega Records Logo"
-                    width={119} // 238 / 2 = 119
-                    height={40} // 80 / 2 = 40
+                    width={119}
+                    height={40}
                     priority
                   />
                 </Link>
