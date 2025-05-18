@@ -1,11 +1,11 @@
 import { FC } from "react";
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
 
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { auth } from "@/auth.config";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Omega Records",
@@ -18,8 +18,8 @@ type Props = Readonly<{ children: React.ReactNode; }>;
 const AdminLayout: FC<Props> = async ({ children }) => {
   const session = await auth();
 
-  if (!session?.user) {
-    redirect('/admin/login');
+  if (!session) {
+    redirect("/login");
   }
 
   return (
