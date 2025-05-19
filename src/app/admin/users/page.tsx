@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { auth } from "@/auth.config";
 import { redirect } from "next/navigation";
 import {
@@ -9,12 +10,14 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, X, Construction, Pencil, Trash, User } from 'lucide-react';
+import { Check, X, Pencil, Trash, User } from 'lucide-react';
 import { Button, buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
+import getUsers from "@/app/actions/users/get_users";
 
 const UsersPage = async () => {
   const session = await auth();
+
+  const response = await getUsers();
 
   if (!session?.user) {
     redirect('/admin/login');
@@ -47,102 +50,40 @@ const UsersPage = async () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    <TableRow>
-                      <TableCell>Michael Jackson</TableCell>
-                      <TableCell>moonwalker@neveland.com</TableCell>
-                      <TableCell className="inline-flex gap-2">
-                        {['user', 'admin']?.map((role) => (
-                          <div
-                            key={role}
-                            className="bg-gray-800 text-gray-200 px-2 py-1 rounded"
-                          >{role}</div>
-                        ))}
-                      </TableCell>
-                      <TableCell>
-                        {
-                          true
-                            ? <Check className="text-green-500" />
-                            : <X className="text-pink-500" />
-                        }
-                      </TableCell>
-                      <TableCell className="inline-flex gap-2">
-                        <Button variant="info">
-                          <User className="text-sky-50" />
-                        </Button>
-                        <Button variant="warning">
-                          <Pencil className="text-amber-50" />
-                        </Button>
-                        <Button variant="danger">
-                          <Trash className="text-pink-100" />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Mike Shinoda</TableCell>
-                      <TableCell>mike@linkinpark.com</TableCell>
-                      <TableCell className="inline-flex gap-2">
-                        {['user']?.map((role) => (
-                          <div
-                            key={role}
-                            className="bg-gray-800 text-gray-200 px-2 py-1 rounded"
-                          >{role}</div>
-                        ))}
-                      </TableCell>
-                      <TableCell>
-                        {
-                          false
-                            ? <Check className="text-green-500" />
-                            : <X className="text-pink-500" />
-                        }
-                      </TableCell>
-                      <TableCell className="inline-flex gap-2">
-                        <Button variant="info">
-                          <User className="text-sky-50" />
-                        </Button>
-                        <Button variant="warning">
-                          <Pencil className="text-amber-50" />
-                        </Button>
-                        <Button variant="danger">
-                          <Trash className="text-pink-100" />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Daniel González</TableCell>
-                      <TableCell>daniel@gmail.com</TableCell>
-                      <TableCell className="inline-flex gap-2">
-                        {['user', 'admin']?.map((role) => (
-                          <div
-                            key={role}
-                            className="bg-gray-800 text-gray-200 px-2 py-1 rounded"
-                          >{role}</div>
-                        ))}
-                      </TableCell>
-                      <TableCell>
-                        {
-                          true
-                            ? <Check className="text-green-500" />
-                            : <X className="text-pink-500" />
-                        }
-                      </TableCell>
-                      <TableCell className="inline-flex gap-2">
-                        <Button variant="info">
-                          <User className="text-sky-50" />
-                        </Button>
-                        <Button variant="warning">
-                          <Pencil className="text-amber-50" />
-                        </Button>
-                        <Button variant="danger">
-                          <Trash className="text-pink-100" />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
+                    {response.users.map((user) => (
+                      <TableRow key={user.id}>
+                        <TableCell>{user.name}</TableCell>
+                        <TableCell>moonwalker@neveland.com</TableCell>
+                        <TableCell className="inline-flex gap-2">
+                          {user.roles?.map((role) => (
+                            <div
+                              key={role}
+                              className="bg-gray-800 text-gray-200 px-2 py-1 rounded"
+                            >{role}</div>
+                          ))}
+                        </TableCell>
+                        <TableCell>
+                          {user.isActive ? (
+                            <Check className="text-green-500" />
+                          ) : (
+                            <X className="text-pink-500" />
+                          )}
+                        </TableCell>
+                        <TableCell className="inline-flex gap-2">
+                          <Button variant="info">
+                            <User className="text-sky-50" />
+                          </Button>
+                          <Button variant="warning">
+                            <Pencil className="text-amber-50" />
+                          </Button>
+                          <Button variant="danger">
+                            <Trash className="text-pink-100" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
-                <div className="flex flex-col items-center justify-center mt-10">
-                  <h2 className="text-5xl font-semibold text-amber-500">En Construcción</h2>
-                  <Construction size={200} className="text-amber-500" />
-                </div>
               </CardContent>
             </Card>
           </div>
