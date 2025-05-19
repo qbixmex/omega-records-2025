@@ -45,17 +45,19 @@ const DeleteUser: FC<Readonly<{userId: string}>> = ({ userId }) => {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <DialogClose className="inline-flex gap-2">
-            <Button variant="outline" type="button">
-              Cancelar
-            </Button>
-            <Button
-              onClick={handleDelete}
-              variant="danger"
-              type="button"
-            >
-              Eliminar
-            </Button>
+          <DialogClose asChild>
+            <div className="inline-flex gap-2">
+              <Button variant="outline" type="button">
+                Cancelar
+              </Button>
+              <Button
+                onClick={handleDelete}
+                variant="danger"
+                type="button"
+              >
+                Eliminar
+              </Button>
+            </div>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
