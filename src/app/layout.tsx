@@ -4,6 +4,7 @@ import "./globals.css";
 import { montserrat } from "./fonts";
 import AuthProvider from "@/app/admin/(auth)/components/AuthProvider";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Omega Records",
@@ -28,6 +29,7 @@ const RootLayout: FC<Props> = ({ children }) => {
               disableTransitionOnChange
             >
               {children}
+              <Toaster position="top-right" richColors />
             </ThemeProvider>
           </AuthProvider>
         </body>
