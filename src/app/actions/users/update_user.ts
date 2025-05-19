@@ -1,14 +1,14 @@
 "use server";
 
 import prisma from '@/lib/prisma';
-import userSchema from './users.schema';
+import userUpdateSchema from './user_update.schema';
 import { revalidatePath } from 'next/cache';
 import bcrypt from 'bcryptjs';
 
 const updateUser = async (id: string, formData: FormData) => {
   const data = Object.fromEntries(formData);
 
-  const userParsed = userSchema.safeParse(data);
+  const userParsed = userUpdateSchema.safeParse(data);
 
   if (!userParsed.success) {
     return {
@@ -32,7 +32,7 @@ const updateUser = async (id: string, formData: FormData) => {
 
       return {
         ok: true,
-        message: 'User updated successfully',
+        message: 'Usuario actualizado correctamente',
         category: updatedUser,
       };
     });
@@ -45,7 +45,7 @@ const updateUser = async (id: string, formData: FormData) => {
     console.error(error);
     return {
       ok: false,
-      message: 'Error updating an user',
+      message: 'Error al actualizar el usuario',
     };
   }
 };

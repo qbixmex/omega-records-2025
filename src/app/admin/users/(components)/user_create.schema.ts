@@ -2,18 +2,19 @@ import { Role } from "@/app/actions/users/role.enum";
 import { z } from "zod";
 
 const userCreateSchema = z.object({
-  name: z.string().min(3, { message: "Name must contains at least 3 characters" }),
-  email: z.string().email({ message: "Email is invalid" }),
+  name: z.string().min(3, { message: "El nombre debe contener por lo menos 3 caracteres" }),
+  email: z.string().email({ message: "Email es invalido" }),
   password: z.string().min(6, { message: "Password must contains at least 6 characters" }),
   passwordConfirmation: z
-    .string({ message: 'The password confirmation must be an string' })
-    .min(6, 'The password confirmation must contain at lest 8 characters long')
-    .max(24, 'The password confirmation must be less than 24 characters long')
-    .optional()
-    .or(z.literal('')),
+    .string({ message: 'La contraseña debe ser un string' })
+    .min(6, 'La contraseña debe contener por lo menos 8 caracteres')
+    .max(24, 'La contraseña debe contener debe ser menor a 24 caracteres'),
   roles: z.array(z.nativeEnum(Role)).optional(),
+  isActive: z
+    .boolean({ message: 'Es Habilitado debe ser un valor boleano' })
+    .optional(),
 }).refine(data => data.password === data.passwordConfirmation, {
-  message: 'The passwords must match',
+  message: 'Las contraseñas no coinciden',
   path: ['passwordConfirmation'],
 });
 

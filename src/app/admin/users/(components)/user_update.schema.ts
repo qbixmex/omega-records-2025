@@ -1,19 +1,22 @@
 import { z } from "zod";
 
 const userUpdateSchema = z.object({
-  name: z.string().min(3, { message: "Name must contains at least 3 characters" }),
-  email: z.string().email({ message: "Email is invalid" }),
+  name: z.string().min(3, { message: "El nombre debe contener por lo menos 3 caracteres" }),
+  email: z.string().email({ message: "Email es invalido" }),
   password: z
-    .string({ message: 'The password must be an string' })
-    .min(6, 'The password must contain at lest 8 characters long')
-    .max(24, 'The password must be less than 24 characters long')
+    .string({ message: 'La contraseña debe ser un string' })
+    .min(6, 'La contraseña debe contener por lo menos 8 caracteres')
+    .max(24, 'La contraseña debe contener debe ser menor a 24 caracteres')
     .or(z.literal('')),
   passwordConfirmation: z
-    .string({ message: 'The password confirmation must be an string' })
-    .min(6, 'The password confirmation must contain at lest 8 characters long')
-    .max(24, 'The password confirmation must be less than 24 characters long')
+    .string({ message: 'La confirmación de la contraseña debe ser un string' })
+    .min(6, 'La confirmación de la contraseña debe contener por lo menos 8 caracteres')
+    .max(24, 'La confirmación de la contraseña debe ser menor a 24 caracteres')
     .optional()
     .or(z.literal('')),
+  isActive: z
+    .boolean({ message: 'Es Habilitado debe ser un valor boleano' })
+    .optional(),
 });
 
 export default userUpdateSchema;
