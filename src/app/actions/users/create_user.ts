@@ -35,7 +35,7 @@ const createUser = async (formData: FormData) => {
 
       return {
         ok: true,
-        message: 'User created successfully',
+        message: 'Usuario creado correctamente',
         user: createdUser,
       };
     });
@@ -48,7 +48,7 @@ const createUser = async (formData: FormData) => {
     console.error(error);
     return {
       ok: false,
-      message: 'Error creating a user',
+      message: 'Error al crear el usuario',
     };
   }
 };

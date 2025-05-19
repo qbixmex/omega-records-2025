@@ -55,7 +55,7 @@ const UsersPage = async () => {
                     {response.users.map((user) => (
                       <TableRow key={user.id}>
                         <TableCell>{user.name}</TableCell>
-                        <TableCell>moonwalker@neveland.com</TableCell>
+                        <TableCell>{user.email}</TableCell>
                         <TableCell className="inline-flex gap-2">
                           {user.roles?.map((role) => (
                             <div
@@ -77,7 +77,7 @@ const UsersPage = async () => {
                           </Button>
                           {session.user?.roles?.includes('admin') && (
                             <Link
-                              href={`/admin/users/${user.id}/edit`}
+                              href={`/admin/users/edit/${user.id}`}
                               className={buttonVariants({ variant: 'warning' })}
                             ><Pencil className="text-amber-50" /></Link>
                           )}

@@ -16,7 +16,7 @@ const buttonVariants = cva(
         warning:
           "cursor-pointer bg-amber-500 text-black shadow-xs hover:bg-amber-500/90",
         success:
-          "cursor-pointer bg-emerald-500 text-emerald-50 shadow-xs hover:bg-emerald-500/90",
+          "cursor-pointer bg-emerald-600 text-emerald-50 shadow-xs hover:bg-emerald-600/90",
         info:
           "cursor-pointer bg-sky-500 text-sky-50 shadow-xs hover:bg-sky-500/90",
         danger:
