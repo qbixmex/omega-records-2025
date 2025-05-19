@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import UserForm from "../../(components)/form";
 import { FC } from "react";
 import { getUserById } from "@/app/actions/users/get_user";
+import { Role } from "@/app/actions/users/role.enum";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -27,7 +28,10 @@ const EditUser: FC<Props> = async ({ params }) => {
             <CardTitle className="text-3xl text-center">Actualizar Usuario</CardTitle>
           </CardHeader>
           <CardContent>
-            <UserForm user={response.user} />
+            <UserForm
+              user={response.user}
+              authRoles={session.user.roles as Role[]}
+            />
           </CardContent>
         </Card>
       </div>
