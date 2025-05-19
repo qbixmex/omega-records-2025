@@ -1,14 +1,14 @@
 "use server";
 
-import prisma from '@/lib/prisma';
-import usersSchema from './users_create.schema';
-import { revalidatePath } from 'next/cache';
 import bcrypt from 'bcryptjs';
+import prisma from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
+import userCreateSchema from './user_create.schema';
 
 const createUser = async (formData: FormData) => {
   const data = Object.fromEntries(formData);
 
-  const userParsed = usersSchema.safeParse(data);
+  const userParsed = userCreateSchema.safeParse(data);
 
   if (!userParsed.success) {
     return {
@@ -26,7 +26,11 @@ const createUser = async (formData: FormData) => {
     const prismaTransaction = await prisma.$transaction(async (transaction) => {
 
       const createdUser = await transaction.user.create({
-        data: { ...userToSave }
+        data: {
+          name: userToSave.name,
+          email: userToSave.email,
+          password: userToSave.password,
+        }
       });
 
       return {
