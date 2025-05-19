@@ -10,10 +10,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, X, Pencil, User } from 'lucide-react';
+import { Pencil, User } from 'lucide-react';
 import { Button, buttonVariants } from "@/components/ui/button";
 import getUsers from "@/app/actions/users/get_users";
 import DeleteUser from "./(components)/delete_user";
+import { Badge } from "@/components/ui/badge";
 
 const UsersPage = async () => {
   const session = await auth();
@@ -31,23 +32,23 @@ const UsersPage = async () => {
           <div className="px-4 lg:px-6">
             <Card className="@container/card min-h-[500px]">
               <CardHeader className="flex items-center justify-between">
-                <CardTitle className="text-3xl">Users List</CardTitle>
+                <CardTitle className="text-3xl">Lista de Usuarios</CardTitle>
                 {session.user?.roles?.includes('admin') && (
                   <Link
                     href="/admin/users/new"
                     className={buttonVariants({ variant: 'primary' })}
-                  >Create</Link>
+                  >Crear</Link>
                 )}
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Email</TableHead>
+                      <TableHead>Nombre</TableHead>
+                      <TableHead>Correo Electrónico</TableHead>
                       <TableHead>Roles</TableHead>
-                      <TableHead>Is Active</TableHead>
-                      <TableHead>Actions</TableHead>
+                      <TableHead>Estado</TableHead>
+                      <TableHead>Acciones</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -64,11 +65,11 @@ const UsersPage = async () => {
                           ))}
                         </TableCell>
                         <TableCell>
-                          {user.isActive ? (
-                            <Check className="text-green-500" />
-                          ) : (
-                            <X className="text-pink-500" />
-                          )}
+                          {
+                            user.isActive
+                              ? <Badge variant="success">activo</Badge>
+                              : <Badge variant="secondary">inactivo</Badge>
+                          }
                         </TableCell>
                         <TableCell className="inline-flex gap-2">
                           <Button variant="info">

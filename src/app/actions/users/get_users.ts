@@ -21,7 +21,12 @@ export const getUsers = async (): Promise<ResponseFetchUsers> =>
         image: true,
         createdAt: true,
         updatedAt: true,
-      }
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+      skip: 0,
+      take: 100,
     }) as User[];
 
     return {
