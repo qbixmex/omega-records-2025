@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { FC } from "react";
 import { auth } from "@/auth.config";
 import { FaUser } from "react-icons/fa";
 import Image from "next/image";
@@ -11,14 +11,27 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Check, X } from 'lucide-react';
+import { Check, X, ArrowLeft } from 'lucide-react';
+import { getUserById } from "@/app/actions/users/get_user";
+import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 
-const ProfilePage = async () => {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+const UserDetailsPage: FC<Props> = async ({ params }) => {
   const session = await auth();
 
   if (!session?.user) {
     redirect('/admin/login');
+  }
+
+  const id = (await params).id;
+  const response = await getUserById(id);
+
+  if (!response.ok) {
+    redirect('/admin/users');
   }
 
   return (
@@ -28,13 +41,13 @@ const ProfilePage = async () => {
           <div className="px-4 lg:px-6">
             <Card className="@container/card min-h-[350px]">
               <CardHeader>
-                <CardTitle className="text-3xl">User Details</CardTitle>
+                <CardTitle className="text-3xl">Detalles de Usuario</CardTitle>
               </CardHeader>
               <CardContent>
                 <section className="lg:flex lg:gap-5 mb-10">
-                  <section className="flex justify-center items-center mb-5 md:block w-[100px]">
-                    {(session?.user.image) ? (
-                      <figure>
+                  <section className="flex justify-center items-center mb-5 md:block">
+                    {(response?.user?.image) ? (
+                      <figure className="size-[100px]">
                         <Image
                           src={session.user.image as string}
                           alt={session.user.name}
@@ -44,25 +57,27 @@ const ProfilePage = async () => {
                         />
                       </figure>
                     ) : (
-                      <figure className="flex justify-center items-center border border-gray-400 rounded p-2 box-content size-[150px]">
-                        <FaUser size={100} className="text-gray-400" />
-                      </figure>
+                      <div className="flex justify-center items-center border border-gray-400 rounded p-2 box-content size-[150px]">
+                        <div className="size-[100px]">
+                          <FaUser size={100} className="text-gray-400" />
+                        </div>
+                      </div>
                     )}
                   </section>
                   <Table>
                     <TableBody>
                       <TableRow>
                         <TableHead className="w-[100px]">Nombre</TableHead>
-                        <TableCell>{session?.user.name}</TableCell>
+                        <TableCell>{response?.user?.name}</TableCell>
                       </TableRow>
                       <TableRow>
                         <TableHead>Correo Electrónico</TableHead>
-                        <TableCell>{session?.user.email}</TableCell>
+                        <TableCell>{response?.user?.email}</TableCell>
                       </TableRow>
                       <TableRow>
                         <TableHead>Roles</TableHead>
                         <TableCell className="inline-flex gap-2">
-                          {session?.user.roles?.map((role) => (
+                          {response?.user?.roles?.map((role) => (
                             <div
                               key={role}
                               className="bg-gray-800 text-gray-200 px-2 py-1 rounded"
@@ -73,7 +88,7 @@ const ProfilePage = async () => {
                       <TableRow>
                         <TableHead>Es Activo ?</TableHead>
                         <TableCell>
-                          {session.user.isActive ? <Check className="text-green-500" /> : <X className="text-pink-500" />}
+                          {response?.user?.isActive ? <Check className="text-green-500" /> : <X className="text-pink-500" />}
                         </TableCell>
                       </TableRow>
                     </TableBody>
@@ -81,7 +96,7 @@ const ProfilePage = async () => {
                 </section>
                 <section>
                   <Link
-                    href="/admin/dashboard"
+                    href="/admin/users"
                     className={buttonVariants({ variant: 'primary' })}
                   >
                     <ArrowLeft />
@@ -96,4 +111,4 @@ const ProfilePage = async () => {
   );
 };
 
-export default ProfilePage;
+export default UserDetailsPage;
