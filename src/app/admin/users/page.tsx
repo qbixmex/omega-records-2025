@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Pencil, User } from 'lucide-react';
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import getUsers from "@/app/actions/users/get_users";
 import DeleteUser from "./(components)/delete_user";
 import { Badge } from "@/components/ui/badge";
@@ -72,9 +72,12 @@ const UsersPage = async () => {
                           }
                         </TableCell>
                         <TableCell className="inline-flex gap-2">
-                          <Button variant="info">
+                          <Link
+                            href={`/admin/users/${user.id}`}
+                            className={buttonVariants({ variant: 'info' })}
+                          >
                             <User className="text-sky-50" />
-                          </Button>
+                          </Link>
                           {session.user?.roles?.includes('admin') && (
                             <Link
                               href={`/admin/users/edit/${user.id}`}
