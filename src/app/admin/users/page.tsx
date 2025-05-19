@@ -8,11 +8,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, X, Pencil, Trash, User } from 'lucide-react';
+import { Check, X, Pencil, User } from 'lucide-react';
 import { Button, buttonVariants } from "@/components/ui/button";
 import getUsers from "@/app/actions/users/get_users";
+import DeleteUser from "./(components)/delete_user";
 
 const UsersPage = async () => {
   const session = await auth();
@@ -21,7 +22,7 @@ const UsersPage = async () => {
 
   if (!session?.user) {
     redirect('/admin/login');
-  }
+  }  
 
   return (
     <div className="flex flex-1 flex-col">
@@ -76,9 +77,7 @@ const UsersPage = async () => {
                           <Button variant="warning">
                             <Pencil className="text-amber-50" />
                           </Button>
-                          <Button variant="danger">
-                            <Trash className="text-pink-100" />
-                          </Button>
+                          <DeleteUser userId={user.id as string} />
                         </TableCell>
                       </TableRow>
                     ))}
@@ -92,5 +91,7 @@ const UsersPage = async () => {
     </div>
   );
 };
+
+
 
 export default UsersPage;
