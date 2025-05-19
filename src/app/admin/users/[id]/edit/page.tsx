@@ -1,24 +1,33 @@
 import { auth } from "@/auth.config";
 import { redirect } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import UserForm from "../(components)/form";
+import UserForm from "../../(components)/form";
+import { FC } from "react";
+import { getUserById } from "@/app/actions/users/get_user";
 
-const UsersPage = async () => {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+const EditUser: FC<Props> = async ({ params }) => {
   const session = await auth();
-
+  
   if (!session?.user) {
     redirect('/admin/login');
   }
+
+  const id = (await params).id;
+  const response = await getUserById(id);
 
   return (
     <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
       <div className="px-4 lg:px-6">
         <Card className="@container/card min-h-[500px]">
           <CardHeader>
-            <CardTitle className="text-3xl text-center">Crear Usuario</CardTitle>
+            <CardTitle className="text-3xl text-center">Actualizar Usuario</CardTitle>
           </CardHeader>
           <CardContent>
-            <UserForm />
+            <UserForm user={response.user} />
           </CardContent>
         </Card>
       </div>
@@ -26,4 +35,4 @@ const UsersPage = async () => {
   );
 };
 
-export default UsersPage;
+export default EditUser;

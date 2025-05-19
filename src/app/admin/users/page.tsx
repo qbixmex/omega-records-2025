@@ -75,9 +75,12 @@ const UsersPage = async () => {
                           <Button variant="info">
                             <User className="text-sky-50" />
                           </Button>
-                          <Button variant="warning">
-                            <Pencil className="text-amber-50" />
-                          </Button>
+                          {session.user?.roles?.includes('admin') && (
+                            <Link
+                              href={`/admin/users/${user.id}/edit`}
+                              className={buttonVariants({ variant: 'warning' })}
+                            ><Pencil className="text-amber-50" /></Link>
+                          )}
                           <DeleteUser userId={user.id as string} />
                         </TableCell>
                       </TableRow>
