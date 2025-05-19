@@ -11,6 +11,8 @@ const buttonVariants = cva(
       variant: {
         default:
           "cursor-pointer bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
+        primary:
+          "cursor-pointer bg-blue-500 text-white shadow-xs hover:bg-blue-500/90",
         warning:
           "cursor-pointer bg-amber-500 text-black shadow-xs hover:bg-amber-500/90",
         success:
