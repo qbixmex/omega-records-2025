@@ -13,6 +13,7 @@ const usersSchema = z.object({
     .min(6, 'The password must contain at lest 6 characters long')
     .max(24, 'The password must be less than 24 characters long')
     .or(z.literal('')),
+  isActive: z.string().transform((value) => value === 'true'),
 });
 
 export default usersSchema;
