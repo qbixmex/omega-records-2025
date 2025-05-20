@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -25,6 +25,21 @@ import { User } from "@/interfaces/user.interface";
 import { Role } from "@/app/actions/users/role.enum";
 import updateUser from "@/app/actions/users/update_user";
 import Link from "next/link";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type Props = Readonly<{
   user?: User | null;
@@ -33,8 +48,9 @@ type Props = Readonly<{
 
 type FormValues = z.infer<typeof userUpdateSchema> | z.infer<typeof userCreateSchema>;
 
-export const UserForm: FC<Props> = ({ user , authRoles }) => {
+export const UserForm: FC<Props> = ({ user, authRoles }) => {
   const router = useRouter();
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(user ? userUpdateSchema : userCreateSchema),
@@ -54,6 +70,7 @@ export const UserForm: FC<Props> = ({ user , authRoles }) => {
     formData.append("email", data.email);
     formData.append("password", data.password ?? "");
     formData.append("isActive", data.isActive?.toString() ?? "false");
+    formData.append("roles", JSON.stringify(data.roles));
 
     const response = user && user.id
       ? await updateUser(user.id, formData)
@@ -137,6 +154,85 @@ export const UserForm: FC<Props> = ({ user , authRoles }) => {
               </FormItem>
             )}
           />
+
+         {user && authRoles.includes(Role.ADMIN) && (
+            <FormField
+              control={form.control}
+              name="roles"
+              render={({ field }) => {
+                const options = [
+                  { value: "admin", label: "Admin" },
+                  { value: "user", label: "User" },
+                ];
+                const selectedRoles: string[] = field.value || [];
+  
+                return (
+                  <FormItem>
+                    <FormLabel>Roles</FormLabel>
+                    <FormControl>
+                      <Popover
+                        open={popoverOpen}
+                        onOpenChange={setPopoverOpen}
+                      >
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            aria-expanded={popoverOpen}
+                            className="w-[200px] justify-between"
+                            type="button"
+                            onClick={(open) => !open}
+                          >
+                            {selectedRoles.length === 0
+                              ? "Select roles..."
+                              : options
+                                .filter(opt => selectedRoles.includes(opt.value))
+                                .map(opt => opt.label)
+                                .join(", ")}
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-[200px] p-0">
+                          <Command>
+                            <CommandInput placeholder="Search role..." />
+                            <CommandList>
+                              <CommandEmpty>No role found.</CommandEmpty>
+                              <CommandGroup>
+                                {options.map(option => (
+                                  <CommandItem
+                                    key={option.value}
+                                    value={option.value}
+                                    onSelect={() => {
+                                      const exists = selectedRoles.includes(option.value);
+                                      const newRoles = exists
+                                        ? selectedRoles.filter(v => v !== option.value)
+                                        : [...selectedRoles, option.value];
+                                      field.onChange(newRoles);
+                                    }}
+                                  >
+                                    <Check
+                                      className={cn(
+                                        "mr-2 h-4 w-4",
+                                        selectedRoles.includes(option.value)
+                                          ? "opacity-100"
+                                          : "opacity-0"
+                                      )}
+                                    />
+                                    {option.label}
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+          )} 
 
           {
             user && authRoles.includes(Role.ADMIN) && (

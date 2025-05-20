@@ -1,3 +1,4 @@
+import { Role } from "@/app/actions/users/role.enum";
 import { z } from "zod";
 
 const userUpdateSchema = z.object({
@@ -17,6 +18,7 @@ const userUpdateSchema = z.object({
   isActive: z
     .boolean({ message: 'Es Habilitado debe ser un valor boleano' })
     .optional(),
+  roles: z.array(z.nativeEnum(Role)).optional(),
 });
 
 export default userUpdateSchema;
