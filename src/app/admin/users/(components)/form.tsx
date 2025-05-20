@@ -314,7 +314,7 @@ export const UserForm: FC<Props> = ({ user, authRoles }) => {
             )
           }
 
-          <div className="w-full lg:flex gap-3 lg:justify-end">
+          <div className="flex flex-col lg:flex-row gap-3 lg:justify-end">
             <Link
               href="/admin/users"
               className={buttonVariants({ variant: 'outline' })}

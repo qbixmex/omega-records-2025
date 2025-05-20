@@ -12,9 +12,9 @@ const UsersPage = async () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-      <div className="px-4 lg:px-6">
-        <Card className="@container/card min-h-[500px]">
+    <div className="flex-1 flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+      <div className="flex-1 flex px-4 lg:px-6">
+        <Card className="@container/card flex-1 place-content-start md:place-content-center">
           <CardHeader>
             <CardTitle className="text-3xl text-center">Crear Usuario</CardTitle>
           </CardHeader>
