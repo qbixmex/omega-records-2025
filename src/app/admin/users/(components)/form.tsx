@@ -38,7 +38,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, Eye, EyeClosed } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Props = Readonly<{
@@ -51,6 +51,9 @@ type FormValues = z.infer<typeof userUpdateSchema> | z.infer<typeof userCreateSc
 export const UserForm: FC<Props> = ({ user, authRoles }) => {
   const router = useRouter();
   const [popoverOpen, setPopoverOpen] = useState(false);
+  const [changePassword, setChangePassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(user ? userUpdateSchema : userCreateSchema),
@@ -127,35 +130,85 @@ export const UserForm: FC<Props> = ({ user, authRoles }) => {
             )}
           />
 
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Contraseña</FormLabel>
-                <FormControl>
-                  <Input type="password" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {user && (
+            <section className="flex items-center justify-between rounded-lg border p-3 shadow-sm">
+              <p className="italic text-sm text-gray-300">
+                {changePassword ? 'Ingrese su nueva contraseña' : 'Cambiar Contraseña'}
+              </p>
+              <Switch
+                className="cursor-pointer"
+                checked={changePassword}
+                onCheckedChange={() => {
+                  setChangePassword(prev => !prev);
+                }}
+              />
+            </section>
+          )}
 
-          <FormField
-            control={form.control}
-            name="passwordConfirmation"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Repite Contraseña</FormLabel>
-                <FormControl>
-                  <Input type="password" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {(!user || changePassword) && (
+            <div className="flex flex-col gap-5">
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Contraseña</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? "text" : 'password'}
+                          {...field}
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          className="absolute top-[50%] right-2 translate-y-[-50%]"
+                          onClick={() => setShowPassword(prev => !prev)}
+                        >
+                          {showPassword
+                            ? <Eye size={25} className="text-gray-400" />
+                            : <EyeClosed size={25} className="text-gray-400" />
+                          }
+                        </Button>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="passwordConfirmation"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirme la Contraseña</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Input
+                          type={showPasswordConfirmation ? "text" : 'password'}
+                          {...field}
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          className="absolute top-[50%] right-2 translate-y-[-50%]"
+                          onClick={() => setShowPasswordConfirmation(prev => !prev)}
+                        >
+                          {showPasswordConfirmation
+                            ? <Eye size={25} className="text-gray-400" />
+                            : <EyeClosed size={25} className="text-gray-400" />
+                          }
+                        </Button>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          )}
 
-         {user && authRoles.includes(Role.ADMIN) && (
+          {user && authRoles.includes(Role.ADMIN) && (
             <FormField
               control={form.control}
               name="roles"
@@ -165,7 +218,7 @@ export const UserForm: FC<Props> = ({ user, authRoles }) => {
                   { value: "user", label: "User" },
                 ];
                 const selectedRoles: string[] = field.value || [];
-  
+
                 return (
                   <FormItem>
                     <FormLabel>Roles</FormLabel>
@@ -232,7 +285,7 @@ export const UserForm: FC<Props> = ({ user, authRoles }) => {
                 );
               }}
             />
-          )} 
+          )}
 
           {
             user && authRoles.includes(Role.ADMIN) && (
@@ -240,7 +293,7 @@ export const UserForm: FC<Props> = ({ user, authRoles }) => {
                 control={form.control}
                 name="isActive"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                  <FormItem className="flex items-center justify-between rounded-lg border p-3 shadow-sm">
                     <div className="space-y-0.5">
                       <FormLabel>Es Activo</FormLabel>
                       <FormDescription>
