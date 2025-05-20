@@ -2,6 +2,7 @@ import { auth } from "@/auth.config";
 import { redirect } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import UserForm from "../(components)/form";
+import { Role } from "@/app/actions/users/role.enum";
 
 const UsersPage = async () => {
   const session = await auth();
@@ -18,7 +19,7 @@ const UsersPage = async () => {
             <CardTitle className="text-3xl text-center">Crear Usuario</CardTitle>
           </CardHeader>
           <CardContent>
-            <UserForm />
+            <UserForm authRoles={session.user.roles as Role[]} />
           </CardContent>
         </Card>
       </div>
