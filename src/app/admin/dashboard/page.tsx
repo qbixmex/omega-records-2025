@@ -19,10 +19,10 @@ const DashboardPage = async () => {
   return (
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col gap-2">
-        <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+        <div className="flex flex-1 flex-col gap-4 py-4 md:gap-6 md:py-6">
           <SectionCards />
-          <div className="px-4 lg:px-6">
-            <Card className="@container/card min-h-[350px]">
+          <section className="flex flex-1 px-4 lg:px-6">
+            <Card className="@container/card flex-1 rounded-xl">
               <CardHeader>
                 <CardTitle>Dashboard</CardTitle>
                 <CardDescription>
@@ -37,7 +37,7 @@ const DashboardPage = async () => {
                 </CardDescription>
               </CardHeader>
             </Card>
-          </div>
+          </section>
         </div>
       </div>
     </div>
