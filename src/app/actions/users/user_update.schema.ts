@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Role } from "./role.enum";
 
 const usersSchema = z.object({
   name: z
@@ -14,6 +15,7 @@ const usersSchema = z.object({
     .max(24, 'The password must be less than 24 characters long')
     .or(z.literal('')),
   isActive: z.string().transform((value) => value === 'true'),
+  roles: z.string().transform((value) => JSON.parse(value) as Role[]).optional(),
 });
 
 export default usersSchema;
