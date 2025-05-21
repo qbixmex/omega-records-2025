@@ -1,7 +1,7 @@
 import { FC } from "react";
 import type { Metadata } from "next";
 import "./globals.css";
-import { montserrat } from "./fonts";
+import { montserrat, anton } from "./fonts";
 import AuthProvider from "@/app/admin/(auth)/components/AuthProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
@@ -20,7 +20,7 @@ const RootLayout: FC<Props> = ({ children }) => {
         <head>
           <link rel="icon" type="image/png" href="./images/favicon.png" />
         </head>
-        <body className={`${montserrat.variable} antialiased`}>
+        <body className={`${montserrat.variable} ${anton.variable} antialiased`}>
           <AuthProvider>
             <ThemeProvider
               attribute="class"
