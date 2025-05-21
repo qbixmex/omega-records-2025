@@ -1,4 +1,4 @@
-import { Montserrat, Anton } from "next/font/google";
+import { Montserrat, Anton, Open_Sans } from "next/font/google";
 
 export const montserrat = Montserrat({
   subsets: ['latin'],
@@ -8,4 +8,9 @@ export const montserrat = Montserrat({
 export const anton = Anton({
   weight: ['400'],
   variable: '--font-anton'
+});
+
+export const openSans = Open_Sans({
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-open-sans'
 });
