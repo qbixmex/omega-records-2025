@@ -19,7 +19,7 @@
 }
 
 .mobileLinks {
-  @apply absolute bg-black/90 top-0 left-0 w-screen h-screen
+  @apply absolute bg-stone-950 top-0 left-0 w-screen h-screen
     flex flex-col gap-6 items-center justify-center;
 }
 
