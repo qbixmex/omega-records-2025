@@ -1,14 +1,18 @@
 import { FC } from "react";
-import type { Metadata } from "next";
-import "./globals.css";
+import { Metadata } from "next";
 import { montserrat, anton, openSans } from "./fonts";
 import AuthProvider from "@/app/admin/(auth)/components/AuthProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Omega Records",
-  description: "Music Recording Studio",
+  title: {
+    template: "%s | Omega Records",
+    absolute: "Omega Records - Estudio de Grabación Profesional",
+    default: "Omega Records",
+  },
+  description: "Omega Records es un estudio de grabación y producción musical profesional, especializado en ofrecer servicios de alta calidad para músicos y bandas.",
   robots: "index, follow",
 };
 
