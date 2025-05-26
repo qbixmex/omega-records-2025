@@ -1,0 +1,66 @@
+@reference '../../../globals.css';
+
+.hero {
+  height: 100vh;
+  position: relative;
+}
+
+.bgImage {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+}
+
+.content {
+  width: 50%;
+  position: absolute;
+  height: auto;
+  top: 50%;
+  left: 10%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  font-family: var(--font-anton), var(--font-montserrat);
+  letter-spacing: 10px;
+  line-height: 140px;
+  @apply text-[120px] font-extrabold mb-8;
+}
+
+.contentData {
+  display: block;
+}
+
+.word-1 {
+  @apply text-neutral-200/60 inline-block;
+}
+
+.word-2 {
+  @apply text-primary/80 inline-block;
+}
+
+.word-3 {
+  @apply bg-gradient-to-r from-pink-800 to-pink-500 inline-block text-transparent bg-clip-text;
+}
+
+.description {
+  @apply text-2xl leading-8 tracking-wider font-semibold text-pretty mb-12;
+  font-family: var(--font-open-sans);
+}
+
+.actions {
+  @apply flex justify-start;
+}
+
+.cta {
+  @apply bg-secondary/70 text-center w-[250px] py-4 rounded-full font-semibold
+    hover:bg-primary/80 hover:text-foreground/80 text-foreground
+    transition-colors duration-300 ease-in-out border-primary/70 border-2;
+}
