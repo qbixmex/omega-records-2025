@@ -1,0 +1,40 @@
+@reference '../../../globals.css';
+
+.services {
+  @apply bg-stone-200 min-h-screen px-20 py-30 text-stone-900;
+}
+
+.subtitle {
+  font-family: var(--font-anton);
+  @apply pb-2 text-center font-normal text-primary text-2xl italic;
+}
+
+.title {
+  @apply text-7xl font-black text-center text-stone-700 mb-10;
+}
+
+.servicesContainer {
+  @apply grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 items-start pt-10;
+}
+
+.serviceCard {
+  margin: 0 auto;
+  @apply max-w-[600px] h-full bg-white rounded-md shadow-lg
+    flex flex-col items-center text-center self-start;
+}
+
+.serviceImage {
+  @apply rounded-t-md;
+}
+
+.serviceContent {
+  @apply px-8 py-10;
+}
+
+.serviceTitle {
+  @apply text-2xl font-black text-stone-700 mb-5 text-pretty;
+}
+
+.serviceDescription {
+  @apply text-stone-500 font-semibold text-center text-pretty leading-7 tracking-wider;
+}
