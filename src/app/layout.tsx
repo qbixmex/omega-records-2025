@@ -1,7 +1,7 @@
 import { FC } from "react";
 import type { Metadata } from "next";
 import "./globals.css";
-import { montserrat } from "./fonts";
+import { montserrat, anton, openSans } from "./fonts";
 import AuthProvider from "@/app/admin/(auth)/components/AuthProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
@@ -14,13 +14,19 @@ export const metadata: Metadata = {
 
 type Props = Readonly<{ children: React.ReactNode; }>;
 
+const fontsVariables = [
+  montserrat.variable,
+  anton.variable,
+  openSans.variable
+];
+
 const RootLayout: FC<Props> = ({ children }) => {
   return (
     <html lang="es" suppressHydrationWarning>
         <head>
           <link rel="icon" type="image/png" href="./images/favicon.png" />
         </head>
-        <body className={`${montserrat.variable} antialiased`}>
+        <body className={`${fontsVariables.join(' ')} antialiased`}>
           <AuthProvider>
             <ThemeProvider
               attribute="class"
