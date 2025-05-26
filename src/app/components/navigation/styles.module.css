@@ -1,0 +1,32 @@
+@reference "../../globals.css";
+
+.navigation {
+  @apply w-full absolute z-[100] top-0 left-0
+    flex items-center justify-between
+    p-10 bg-gradient-to-b from-black/80 to-transparent;
+}
+
+.hamburgerIcon {
+  @apply lg:hidden size-[35px] text-gray-100;
+}
+
+.closeIcon {
+  @apply absolute lg:hidden top-10 right-10 size-[40px] text-gray-100 cursor-pointer;
+}
+
+.desktopLinks {
+  @apply hidden lg:flex items-center justify-center gap-5;
+}
+
+.mobileLinks {
+  @apply absolute bg-black/90 top-0 left-0 w-screen h-screen
+    flex flex-col gap-6 items-center justify-center;
+}
+
+.link {
+  @apply font-semibold text-4xl lg:text-lg hover:text-primary transition-colors duration-300 ease-in-out;
+}
+
+.linkActive {
+  @apply font-bold text-primary;
+}
