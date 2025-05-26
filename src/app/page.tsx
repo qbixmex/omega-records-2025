@@ -1,10 +1,12 @@
-import Hero from "./components/home/hero/hero.component";
 import PublicLayout from "./(public)/public.layout";
+import Hero from "./components/home/hero/hero.component";
+import Services from "./components/home/services/services.component";
 
 const HomePage = () => {
   return (
     <PublicLayout>
       <Hero />
+      <Services />
     </PublicLayout>
   );
 };
