@@ -27,23 +27,24 @@ const fontsVariables = [
 const RootLayout: FC<Props> = ({ children }) => {
   return (
     <html lang="es" suppressHydrationWarning>
-        <head>
-          <link rel="icon" type="image/png" href="./images/favicon.png" />
-        </head>
-        <body className={`${fontsVariables.join(' ')} antialiased`}>
-          <AuthProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              {children}
-              <Toaster position="top-right" richColors />
-            </ThemeProvider>
-          </AuthProvider>
-        </body>
-      </html>
+      <head>
+        <link rel="icon" type="image/png" href="./images/favicon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      </head>
+      <body className={`${fontsVariables.join(' ')} antialiased`}>
+        <AuthProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster position="top-right" richColors />
+          </ThemeProvider>
+        </AuthProvider>
+      </body>
+    </html>
   );
 };
 

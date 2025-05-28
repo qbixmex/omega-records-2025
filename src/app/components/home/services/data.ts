@@ -4,6 +4,7 @@ export type Service = {
   description: string;
   image: string;
   url: string;
+  main?: boolean;
 };
 
 export const services: Service[] = [
@@ -13,6 +14,7 @@ export const services: Service[] = [
     image: "/images/services/music-recording.jpg",
     description: "Contamos con el servicio de \"Grabación de Audio Profesional\" haciendo uso de las mejores tecnologías y herramientas para garantizarte el mejor resultado en tus producciones musicales.",
     url: "#",
+    main: true,
   },
   {
     id: "fdb7a57c-07b8-40b8-8de6-ab22f0c8e746",
@@ -20,6 +22,7 @@ export const services: Service[] = [
     image: "/images/services/mixing-mastering.jpg",
     description: "Realizamos Mezcla y Masterización de tus temas musicales, garantizando un sonido profesional y de alta calidad con lo que se pretende lograr el mejor balance de los componentes para obtener los mejores estandares de audio que demanda la industria.",
     url: "#",
+    main: true,
   },
   {
     id: "836a4c79-c66f-4749-b915-7bcc23393c37",
@@ -27,6 +30,7 @@ export const services: Service[] = [
     image: "/images/services/music-production.jpg",
     description: "Ofrecemos servicios de Producción Musical, desde la composición hasta la mezcla y masterización, para que tu música suene como lo imaginas por medio de nuestro equipo de Músicos y Productores que te asesorarán en la composición de tus temas musicales",
     url: "#",
+    main: true,
   },
   {
     id: "c439f38b-713f-4d92-b087-316c87b826ad",

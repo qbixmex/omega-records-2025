@@ -5,6 +5,7 @@ type Slide = {
   image: {
     id: string;
     url: string;
+    mobileUrl: string;
     alt: string;
   };
   slogan: string[];
@@ -17,6 +18,7 @@ export const slides: Slide[] = [
     image: {
       id: 'e15a98ca',
       url: '/images/studio/slide_one.png',
+      mobileUrl: '/images/studio/slide_one_mobile.jpg',
       alt: 'Woman listening to music with headphones',
     },
     slogan: ['ESTUDIO DE', 'GRABACIÓN'],
@@ -27,6 +29,7 @@ export const slides: Slide[] = [
     image: {
       id: '4d479b75',
       url: '/images/studio/slide_two.png',
+      mobileUrl: '/images/studio/slide_two_mobile.jpg',
       alt: 'Audio engineer working moving faders and knobs in a recording studio',
     },
     slogan: ['MEZCLA Y', 'MASTERIZACIÓN'],
@@ -37,6 +40,7 @@ export const slides: Slide[] = [
     image: {
       id: '8ecf0e0b',
       url: '/images/studio/slide_three.png',
+      mobileUrl: '/images/studio/slide_three_mobile.jpg',
       alt: 'Musical rehearsal room',
     },
     slogan: ['SALA DE', 'ENSAYO'],
@@ -47,6 +51,7 @@ export const slides: Slide[] = [
     image: {
       id: '637d8154',
       url: '/images/studio/slide_four.png',
+      mobileUrl: '/images/studio/slide_four_mobile.jpg',
       alt: 'Microphone for recording studio',
     },
     slogan: ['GRABACIÓN EN', 'VIVO'],

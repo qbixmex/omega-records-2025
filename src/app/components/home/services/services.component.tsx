@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import styles from './styles.module.css';
-import { services } from './data';
+import { fetchMainServices } from '@/app/actions/services/fetch_services';
 
 export const Services = () => {
+  const services = fetchMainServices();
+
   return (
     <section className={styles.services}>
       <header className={styles.heading}>
