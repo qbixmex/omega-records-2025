@@ -13,6 +13,7 @@ export const TopNavigation = () => {
             alt="Omega Records Logo"
             width={178.5}
             height={60}
+            className={styles.logo}
           />
         </Link>
       </figure>

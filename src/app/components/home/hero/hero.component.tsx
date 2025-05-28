@@ -6,7 +6,7 @@ export const Hero = () => {
     <section className={styles.hero}>
       <div className={styles.bgImage}>
         <HeroCarousel />
-      </div>      
+      </div>
     </section>
   );
 };
