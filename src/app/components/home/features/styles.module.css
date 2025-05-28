@@ -1,0 +1,46 @@
+@reference '../../../globals.css';
+
+.features {
+  @apply min-h-[100vh] px-5 lg:px-10 py-20 bg-stone-900 grid content-center;
+}
+
+.title {
+  @apply text-8xl font-black mb-20 text-primary/90 text-center;
+}
+
+.grid {
+  @apply grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-[1fr_minmax(320px,512px)_1fr] md:gap-10; 
+}
+
+.featuresImageContainer {
+  @apply hidden 2xl:block;
+}
+
+.featuresImage {
+ @apply w-full brightness-80;
+}
+
+.featuresContainer {
+  @apply relative flex flex-col gap-10;
+}
+
+.feature {
+  @apply grid grid-cols-[100px_minmax(100,_1fr)] gap-2 self-start;
+}
+
+.featureIconContainer {
+  @apply size-[100px] flex items-center justify-center self-center;
+}
+
+.featureIcon {
+  @apply size-[75px] text-gray-200;
+}
+
+.featureTitle {
+  font-family: var(--font-anton);
+  @apply text-2xl text-amber-600 font-bold tracking-[1.8] mb-2;
+}
+
+.featureDescription {
+  @apply text-gray-400 text-lg leading-6 italic font-semibold text-pretty;
+}
