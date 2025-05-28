@@ -40,7 +40,9 @@ export const HeroCarousel = () => {
       <div className="embla__container">
         {slides.map((slide, index) => (
           <div className="embla__slide" key={slide.image.id}>
-            <figure className="embla__slide__figure">
+            <picture className="embla__slide__figure">
+              <source media="(max-width: 768px)" srcSet={slide.image.mobileUrl} />
+              <source media="(min-width: 769px)" srcSet={slide.image.url} />
               <Image
                 src={slide.image.url}
                 alt={slide.image.alt}
@@ -49,7 +51,7 @@ export const HeroCarousel = () => {
                 className={`embla__slide__img${selectedIndex === index ? ' zooming' : ''}`}
                 key={selectedIndex === index ? slide.image.id + '-active' : slide.image.id}
               />
-            </figure>
+            </picture>
             <div className={styles.content}>
               <section className={styles.contentData}>
                 <div className={styles.title}>
