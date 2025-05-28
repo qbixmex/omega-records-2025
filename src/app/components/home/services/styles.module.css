@@ -1,25 +1,29 @@
 @reference '../../../globals.css';
 
 .services {
-  @apply bg-stone-200 min-h-screen px-20 py-30 text-stone-900;
+  @apply bg-stone-300 px-5 lg:px-20 py-16 lg:py-30 text-stone-900;
+}
+
+.heading {
+  @apply w-full;
 }
 
 .subtitle {
   font-family: var(--font-anton);
-  @apply pb-2 text-center font-normal text-primary text-2xl italic;
+  @apply pb-2 text-center font-normal text-primary text-xl lg:text-2xl italic;
 }
 
 .title {
-  @apply text-7xl font-black text-center text-stone-700 mb-10;
+  @apply text-5xl lg:text-7xl font-black text-center text-stone-700 mb-0 lg:mb-10;
 }
 
 .servicesContainer {
-  @apply grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 items-start pt-10;
+  @apply grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10 items-start pt-8 lg:pt-10;
 }
 
 .serviceCard {
   margin: 0 auto;
-  @apply max-w-[600px] h-full bg-white rounded-md shadow-lg
+  @apply max-w-[600px] h-full bg-gray-100 rounded-md shadow-lg
     flex flex-col items-center text-center self-start;
 }
 
@@ -28,7 +32,7 @@
 }
 
 .serviceContent {
-  @apply px-8 py-10;
+  @apply p-5 lg:py-10 lg:px-8;
 }
 
 .serviceTitle {
